@@ -181,6 +181,16 @@ def SARIsent (ssent, csent, rsents) :
     return finalscore
 
 
+def SARIdoc(source_path: str, hypothesis_path: str, reference_path: str):
+    scores = []
+    with open(source_path, "r") as src_file, open(hypothesis_path, "r") as hyp_file, open(
+        reference_path, "r"
+    ) as ref_file:
+        for src, hyp, ref in zip(src_file, hyp_file, ref_file):
+            scores.append(SARIsent(src, hyp, [ref]))
+    return sum(scores)/len(scores)
+
+
 def main():
 
     fnamenorm   = "./turkcorpus/test.8turkers.tok.norm"
